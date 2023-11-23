@@ -1,4 +1,3 @@
-import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import styles from './navbar.module.css';
@@ -27,12 +26,11 @@ const Navbar = ({
 
   return (
     <div
-      className={`fixed top-0 right-0 h-full w-full bg-primary  z-50 transform ${
+      className={`fixed top-0 right-0 h-full w-full bg-primary z-50 ${
         isOpen ? 'block' : 'hidden'
-        // isOpen ? 'translate-x-0' : 'translate-x-full'
-      } transition-transform duration-300 ease-in-out`}
+      } `}
     >
-      <nav className="px-6 py-3 ">
+      <nav className="px-6 py-3">
         <div className="flex justify-between items-center">
           <Image
             src="/logo-white.svg"
@@ -41,16 +39,16 @@ const Navbar = ({
             alt="Company Logo"
           />
           <button
-            className="text-white bg-transparent border-0 "
+            className="text-white bg-transparent border-0"
             onClick={toggleNavbar}
           >
-            <RxCross2 size={25} />
+            <RxCross2 size={30} />
           </button>
         </div>
         <ul className="p-0 m-0 list-none">
           {listItemsComponent('/', 'Dashboard')}
 
-          {listItemsComponent('/', 'Favourite Events')}
+          {listItemsComponent('/favourites', 'Favourite Events')}
         </ul>
       </nav>
     </div>

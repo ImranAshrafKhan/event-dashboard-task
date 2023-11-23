@@ -11,7 +11,7 @@ const Header = () => {
 
   return (
     <header className="px-4 py-1 bg-white flex justify-between ">
-      <div className="flex items-center w-5/6">
+      <div className="w-5/6 flex items-center">
         <Link href="/">
           <Image src="/logo.svg" width={40} height={40} alt="Company Logo" />
         </Link>

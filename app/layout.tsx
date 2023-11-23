@@ -2,6 +2,7 @@ import './globals.css';
 import type { Metadata } from 'next';
 import { inter } from '@/app/ui/fonts';
 import Header from './ui/header/header';
+import Panel from './ui/panel/panel';
 
 export const metadata: Metadata = {
   title: 'Events Dashboard',
@@ -15,9 +16,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body
+        className={`mx-2 h-screen flex flex-col ${inter.className} antialiased`}
+      >
         <Header />
-        <div>{children}</div>
+        <Panel children={children} />
       </body>
     </html>
   );

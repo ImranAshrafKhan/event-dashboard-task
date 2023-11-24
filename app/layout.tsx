@@ -1,6 +1,7 @@
 import './globals.css';
 import type { Metadata } from 'next';
 import { inter } from '@/app/ui/fonts';
+import { ReduxProvider } from './redux/provider';
 import Header from './ui/header/header';
 import Panel from './ui/panel/panel';
 
@@ -19,8 +20,10 @@ export default function RootLayout({
       <body
         className={`mx-2 h-screen flex flex-col ${inter.className} antialiased`}
       >
-        <Header />
-        <Panel children={children} />
+        <ReduxProvider>
+          <Header />
+          <Panel children={children} />
+        </ReduxProvider>
       </body>
     </html>
   );

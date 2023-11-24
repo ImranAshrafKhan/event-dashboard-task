@@ -1,8 +1,16 @@
-import Card from './ui/dashboard/card';
-import EventsTable from './ui/dashboard/events-table';
 import Image from 'next/image';
+import DisplayCounterCard from './ui/dashboard/display-counter-card';
+import EventsTable from './ui/dashboard/events-table';
+import MonthlyEventCard from './ui/dashboard/monthly-event-card';
 
 export default function () {
+  const event = {
+    name: 'Web Development',
+    category: 'AI',
+    location: 'Bahria Intellectual Village',
+    date: 'Thu 2 Nov 2023',
+    time: '12:00am',
+  };
   return (
     <main className="h-full w-full flex md:flex-row flex-col-reverse">
       <div className="md:me-7 md:w-4/6 w-full h-full flex flex-col">
@@ -29,13 +37,13 @@ export default function () {
         <div className="h-1/6 w-full flex">
           {/* The overall dashboard stats cards */}
           <div className="w-4/12">
-            <Card cardTitle="All Events" amount={210000} />
+            <DisplayCounterCard cardTitle="All Events" amount={210000} />
           </div>
           <div className="mx-4 w-4/12">
-            <Card cardTitle="This Month" amount={30} />
+            <DisplayCounterCard cardTitle="This Month" amount={30} />
           </div>
           <div className="w-4/12">
-            <Card cardTitle="Favourite Events" amount={25} />
+            <DisplayCounterCard cardTitle="Favourite Events" amount={25} />
           </div>
         </div>
       </div>
@@ -46,8 +54,8 @@ export default function () {
           lol
         </div>
 
-        <div className="h-3/5 w-full bg-white hidden md:block border-2 border-black border-solid">
-          haha
+        <div className="h-3/5 w-full hidden md:block ">
+          <MonthlyEventCard event={event} />
         </div>
       </div>
     </main>

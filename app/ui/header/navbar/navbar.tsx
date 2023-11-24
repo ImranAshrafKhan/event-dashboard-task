@@ -46,7 +46,7 @@ const Navbar = ({
           </button>
         </div>
         <ul className="p-0 m-0 list-none">
-          {listItemsComponent('/dashboard', 'Dashboard')}
+          {listItemsComponent('/', 'Dashboard')}
 
           {listItemsComponent('/favourites', 'Favourite Events')}
         </ul>

@@ -5,8 +5,8 @@ const UpcomingEventsList = () => {
     <div className="p-3 h-full w-full bg-white rounded-2xl ">
       <h1 className="mb-3 text-black text-xl">Upcoming Events</h1>
       <div
-        className="w-full h-5/6 relative overflow-y-scroll"
-        style={{ scrollbarColor: 'green' }}
+        className="w-full  relative overflow-y-scroll "
+        style={{ maxHeight: '40vh' }}
       >
         <EventsData />
         <EventsData />

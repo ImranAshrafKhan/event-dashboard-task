@@ -32,34 +32,42 @@ const EventsTable = () => {
         </thead>
 
         <tbody className="text-slate-500 font-medium">
-          <tr className="cursor-pointer">
-            <td colSpan={6} className="p-0 pt-3">
-              <div className="bg-white text-start rounded-xl border border-solid border-slate-200 hover:bg-slate-100">
-                <table className="w-full">
-                  <tbody>
-                    <tr>
-                      <td className="px-6 py-4 font-extrabold text-slate-800">
-                        01
-                      </td>
-                      <td className="px-6 py-4">Web Development</td>
-                      <td className="px-6 py-4 font-bold">12:00AM</td>
-                      <td className="px-6 py-4 font-bold">Thu 2 Nov</td>
-                      <td className="px-6 py-4">Bahria Intellectual Village</td>
-                      <td className="px-6 py-4 text-primary">
-                        <button className="border-0 bg-transparent">
-                          {/* <FaRegHeart size={21} /> */}
-                          <FaHeart className="text-red-600" size={21} />
-                        </button>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </td>
-          </tr>
+          {TR()}
+          {TR()}
+          {TR()}
+          {TR()}
+          {TR()}
         </tbody>
       </table>
     </div>
+  );
+};
+
+const TR = () => {
+  return (
+    <tr className="cursor-pointer">
+      <td colSpan={6} className="p-0 pt-3">
+        <div className="bg-white text-start rounded-xl border border-solid border-slate-200 hover:bg-slate-100">
+          <table className="w-full">
+            <tbody>
+              <tr>
+                <td className="px-6 py-4 font-extrabold text-slate-800">01</td>
+                <td className="px-6 py-4">Web Development</td>
+                <td className="px-6 py-4 font-bold">12:00AM</td>
+                <td className="px-6 py-4 font-bold">Thu 2 Nov</td>
+                <td className="px-6 py-4">Bahria Intellectual Village</td>
+                <td className="px-6 py-4 text-primary">
+                  <button className="border-0 bg-transparent">
+                    {/* <FaRegHeart size={21} /> */}
+                    <FaHeart className="text-red-600" size={21} />
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </td>
+    </tr>
   );
 };
 

@@ -1,8 +1,8 @@
 import Image from 'next/image';
-import EventsTable from './ui/dashboard/events-table';
-import DisplayCounterCard from './ui/dashboard/display-counter-card';
-import MonthlyEventCard from './ui/dashboard/monthly-event-card';
-import UpcomingEventsList from './ui/dashboard/upcoming-events-list';
+import EventsTable from '@/app/ui/dashboard/events-table';
+import DisplayCounterCard from '@/app/ui/dashboard/display-counter-card';
+import MonthlyEventCard from '@/app/ui/dashboard/monthly-event-card';
+import UpcomingEventsList from '@/app/ui/dashboard/upcoming-events-list';
 
 export default function () {
   const event = {
@@ -16,7 +16,10 @@ export default function () {
     <main className="h-full w-full flex md:flex-row flex-col-reverse">
       <div className="md:me-7 md:w-4/6 w-full h-full flex flex-col">
         {/* The left part of dashboard */}
-        <div className="pb-5 h-5/6 w-full overflow-y-hidden">
+        <div
+          className="pb-5 w-full overflow-y-hidden"
+          style={{ maxHeight: '70vh' }}
+        >
           {/* Here we're displaying event list */}
           <div className="pb-2 flex justify-between">
             <h1 className="text-lg font-semibold">Events List</h1>

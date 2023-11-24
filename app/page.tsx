@@ -1,7 +1,8 @@
 import Image from 'next/image';
-import DisplayCounterCard from './ui/dashboard/display-counter-card';
 import EventsTable from './ui/dashboard/events-table';
+import DisplayCounterCard from './ui/dashboard/display-counter-card';
 import MonthlyEventCard from './ui/dashboard/monthly-event-card';
+import UpcomingEventsList from './ui/dashboard/upcoming-events-list';
 
 export default function () {
   const event = {
@@ -50,11 +51,11 @@ export default function () {
 
       <div className="md:w-2/6 w-full flex flex-col">
         {/* Right part of dasboard */}
-        <div className="mb-4 h-full w-full bg-white border-2 border-black border-solid">
-          lol
+        <div className="mb-4 h-3/5 w-full">
+          <UpcomingEventsList />
         </div>
 
-        <div className="h-3/5 w-full hidden md:block ">
+        <div className="h-2/5 w-full hidden md:block ">
           <MonthlyEventCard event={event} />
         </div>
       </div>

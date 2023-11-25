@@ -3,18 +3,10 @@
 import { AppDispatch, useAppSelector } from '@/app/redux/store';
 import { setEvents } from '@/app/redux/features/event-slice';
 import { getEvents } from '@/app/lib/get-events';
+import { Event } from '@/app/redux/features/event-slice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { FaRegHeart, FaHeart } from 'react-icons/fa';
-
-type Event = {
-  rank: number;
-  title: string;
-  category: string;
-  description: string;
-  country: string;
-  start: string;
-};
 
 const EventsTable = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -85,8 +77,8 @@ const EventRow = ({ event }: { event: Event }) => {
                   {event.rank}
                 </td>
                 <td className="px-6 py-4">{event.title}</td>
-                <td className="px-6 py-4 font-bold">{event.start}</td>
-                <td className="px-6 py-4 font-bold">{event.start}</td>
+                <td className="px-6 py-4 font-bold">{event.date}</td>
+                <td className="px-6 py-4 font-bold">{event.time}</td>
                 <td className="px-6 py-4">{event.country}</td>
                 <td className="px-6 py-4 text-primary">
                   <button className="border-0 bg-transparent">

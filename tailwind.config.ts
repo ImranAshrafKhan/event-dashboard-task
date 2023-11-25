@@ -19,6 +19,7 @@ const config: Config = {
         primaryLight: '#ECEAFF',
         primaryDark: '#4F40BA',
         background: `#F9FAFE`,
+        filterField: '#EDEDED',
       },
     },
   },

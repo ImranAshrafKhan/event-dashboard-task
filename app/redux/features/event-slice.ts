@@ -13,14 +13,6 @@ export type Event = {
   isFavourite: boolean;
 };
 
-const initialState: {
-  totalCount: number;
-  events: Event[];
-} = {
-  totalCount: 0,
-  events: [],
-};
-
 export const monthNames = [
   'Jan',
   'Feb',
@@ -57,6 +49,16 @@ export const ProcessDate = (dateToBeProcessed: string) => {
   return formattedDate;
 };
 
+const initialState: {
+  totalCount: number;
+  events: Event[];
+  isLoading: boolean;
+} = {
+  totalCount: 0,
+  events: [],
+  isLoading: true,
+};
+
 export const eventSlice = createSlice({
   name: 'events',
   initialState,
@@ -89,8 +91,12 @@ export const eventSlice = createSlice({
         }
       });
     },
+
+    setLoading: (state, action: PayloadAction<{ loading: boolean }>) => {
+      state.isLoading = action.payload.loading;
+    },
   },
 });
 
-export const { setEvents } = eventSlice.actions;
+export const { setEvents, setLoading } = eventSlice.actions;
 export default eventSlice.reducer;

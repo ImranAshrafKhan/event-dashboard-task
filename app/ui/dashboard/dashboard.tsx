@@ -1,12 +1,13 @@
 'use client';
 import Image from 'next/image';
+import Loading from '../loading';
 import EventsTable from '@/app/ui/dashboard/events-table';
 import DisplayCounterCard from '@/app/ui/dashboard/display-counter-cards/display-counter-cards';
 import MonthlyEventCard from '@/app/ui/dashboard/monthly-event-card';
 import UpcomingEventsList from '@/app/ui/dashboard/upcoming-events-list';
 
-import { AppDispatch } from '@/app/redux/store';
-import { setEvents } from '@/app/redux/features/event-slice';
+import { AppDispatch, useAppSelector } from '@/app/redux/store';
+import { setEvents, setLoading } from '@/app/redux/features/event-slice';
 import { getEvents } from '@/app/lib/get-events';
 import { setUpcomingEvents } from '@/app/redux/features/upcoming-events-slice';
 import { useDispatch } from 'react-redux';
@@ -18,18 +19,25 @@ const Dashboard = () => {
   useEffect(() => {
     const getAndDispatchEvents = async () => {
       try {
+        dispatch(setLoading({ loading: true }));
         const events = await getEvents();
         dispatch(setEvents({ count: events.count, results: events.results }));
         dispatch(setUpcomingEvents({ results: events.results }));
       } catch (error) {
         console.error('Error fetching events:', error);
+      } finally {
+        dispatch(setLoading({ loading: false }));
       }
     };
 
     getAndDispatchEvents();
   }, [dispatch]);
 
-  return (
+  const isLoading = useAppSelector((state) => state.eventsReducer.isLoading);
+
+  return isLoading ? (
+    <Loading />
+  ) : (
     <>
       <div className="md:me-7 md:w-4/6 w-full h-full flex flex-col">
         {/* The left part of dashboard */}

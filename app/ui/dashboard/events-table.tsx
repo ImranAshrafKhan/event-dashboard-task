@@ -1,29 +1,10 @@
 'use client';
 
-import { AppDispatch, useAppSelector } from '@/app/redux/store';
-import { setEvents } from '@/app/redux/features/event-slice';
-import { getEvents } from '@/app/lib/get-events';
+import { useAppSelector } from '@/app/redux/store';
 import { Event } from '@/app/redux/features/event-slice';
-import { useDispatch } from 'react-redux';
-import { useEffect } from 'react';
 import { FaRegHeart, FaHeart } from 'react-icons/fa';
 
 const EventsTable = () => {
-  const dispatch = useDispatch<AppDispatch>();
-
-  useEffect(() => {
-    const getAndDispatchEvents = async () => {
-      try {
-        const events = await getEvents();
-        dispatch(setEvents({ count: events.count, results: events.results }));
-      } catch (error) {
-        console.error('Error fetching events:', error);
-      }
-    };
-
-    getAndDispatchEvents();
-  }, [dispatch]);
-
   const events = useAppSelector((state) => state.eventsReducer.events);
 
   return (
@@ -56,7 +37,7 @@ const EventsTable = () => {
 
         <tbody className="text-slate-500 font-medium">
           {events.map((event, index) => (
-            <EventRow event={event} />
+            <EventRow event={event} index={index} />
           ))}
         </tbody>
       </table>
@@ -64,9 +45,9 @@ const EventsTable = () => {
   );
 };
 
-const EventRow = ({ event }: { event: Event }) => {
+const EventRow = ({ event, index }: { event: Event; index: number }) => {
   return (
-    <tr className="cursor-pointer">
+    <tr className="cursor-pointer" key={index}>
       <td colSpan={6} className="p-0 pt-3">
         <div className="bg-white text-start rounded-xl border border-solid border-slate-200 hover:bg-slate-100">
           <table className="w-full">

@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import EventsTable from '@/app/ui/dashboard/events-table';
-import DisplayCounterCard from '@/app/ui/dashboard/display-counter-card';
+import DisplayCounterCard from '@/app/ui/dashboard/display-counter-cards/display-counter-cards';
 import MonthlyEventCard from '@/app/ui/dashboard/monthly-event-card';
 import UpcomingEventsList from '@/app/ui/dashboard/upcoming-events-list';
 
@@ -40,15 +40,7 @@ export default function () {
 
         <div className="h-1/6 w-full flex">
           {/* The overall dashboard stats cards */}
-          <div className="w-4/12">
-            <DisplayCounterCard cardTitle="All Events" amount={210000} />
-          </div>
-          <div className="mx-4 w-4/12">
-            <DisplayCounterCard cardTitle="This Month" amount={30} />
-          </div>
-          <div className="w-4/12">
-            <DisplayCounterCard cardTitle="Favourite Events" amount={25} />
-          </div>
+          <DisplayCounterCard />
         </div>
       </div>
 

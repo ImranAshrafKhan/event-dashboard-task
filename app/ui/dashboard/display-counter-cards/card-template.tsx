@@ -1,6 +1,6 @@
 import React from 'react';
 
-const DisplayCounterCard = ({
+const CardTemplate = ({
   cardTitle,
   amount,
 }: {
@@ -22,4 +22,4 @@ const DisplayCounterCard = ({
   );
 };
 
-export default DisplayCounterCard;
+export default CardTemplate;

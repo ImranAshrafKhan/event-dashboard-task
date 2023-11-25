@@ -4,7 +4,7 @@ import { AppDispatch, useAppSelector } from '@/app/redux/store';
 import { setEvents } from '@/app/redux/features/event-slice';
 import { getEvents } from '@/app/lib/get-events';
 import { Event } from '@/app/redux/features/event-slice';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { FaRegHeart, FaHeart } from 'react-icons/fa';
 
@@ -25,7 +25,6 @@ const EventsTable = () => {
   }, [dispatch]);
 
   const events = useAppSelector((state) => state.eventsReducer.events);
-  const totalEvents = useAppSelector((state) => state.eventsReducer.totalCount);
 
   return (
     <div className="h-5/6 border-0 overflow-x-auto relative">

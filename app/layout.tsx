@@ -18,7 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`mx-2 h-screen flex flex-col ${inter.className} antialiased`}
+        className={`mx-2 h-auto md:h-screen flex flex-col ${inter.className} antialiased`}
       >
         <ReduxProvider>
           <Header />

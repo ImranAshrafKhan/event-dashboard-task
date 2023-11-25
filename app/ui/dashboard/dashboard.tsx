@@ -11,16 +11,41 @@ import { AppDispatch, useAppSelector } from '@/app/redux/store';
 import { setEvents, setLoading } from '@/app/redux/features/event-slice';
 import { setFavEvents } from '@/app/redux/features/favourite-events-slice';
 import { setUpcomingEvents } from '@/app/redux/features/upcoming-events-slice';
+import { filterEvents } from '@/app/lib/events/filter-events';
 import { initializer } from '@/app/redux/features/upcoming-events-slice';
 import { getEvents } from '@/app/lib/events/get-events';
 import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
+import { FaArrowRight } from 'react-icons/fa';
 
 const Dashboard = () => {
   const [needDropdown, setNeedDropdown] = useState(false);
 
   const [searchCategory, setSearchCategory] = useState('');
-  const [dateTime, setDateTime] = useState('');
+
+  const categories = [
+    { value: 'school-holidays', label: 'School Holidays' },
+    { value: 'public-holidays', label: 'Public Holidays' },
+    { value: 'observances', label: 'Observances' },
+    { value: 'politics', label: 'Politics' },
+    { value: 'conferences', label: 'Conferences' },
+    { value: 'expos', label: 'Expos' },
+    { value: 'concerts', label: 'Concerts' },
+    { value: 'festivals', label: 'Festival' },
+    { value: 'perform-arts', label: 'Performing Arts' },
+    { value: 'sports', label: 'Sports' },
+    { value: 'community', label: 'Community' },
+    { value: 'daylight-savings', label: 'Daylight Savings' },
+    { value: 'airport-delays', label: 'Airport Delays' },
+    { value: 'severe-weather', label: 'Severe Weather' },
+    { value: 'disasters', label: 'Disasters' },
+    { value: 'terror', label: 'Terror' },
+    { value: 'health-warnings', label: 'Health Warnings' },
+    { value: 'academic', label: 'Academic' },
+  ];
+
+  const [fromDateTime, setFromDateTime] = useState('');
+  const [toDateTime, setToDateTime] = useState('');
 
   const [selectedEvent, setSelectedEvent] = useState(initializer);
   const handleSelectEvent = (event: any) => {
@@ -50,6 +75,25 @@ const Dashboard = () => {
   }, [dispatch]);
 
   const isLoading = useAppSelector((state) => state.eventsReducer.isLoading);
+
+  const searchAndfilterEvents = async (
+    searchCategory: string,
+    fromDate: string,
+    toDate: string
+  ) => {
+    try {
+      console.log(searchCategory);
+      dispatch(setLoading({ loading: true }));
+      const events = await filterEvents(searchCategory, fromDate, toDate);
+
+      dispatch(setEvents({ count: events.count, results: events.results }));
+      dispatch(setUpcomingEvents({ results: events.results }));
+      dispatch(setLoading({ loading: false }));
+    } catch (error) {
+      console.error('Error while filtering events:', error);
+      dispatch(setLoading({ loading: false }));
+    }
+  };
 
   return isLoading ? (
     <Loading />
@@ -89,20 +133,19 @@ const Dashboard = () => {
                     aria-labelledby="menu-button"
                     tabIndex={-1}
                   >
-                    <div className="px-3 py-5 w-6/12" role="none">
-                      <div className="text-sm text-slate-500">
+                    <div className="px-3 py-5 w-full" role="none">
+                      <div className="w-6/12 text-sm text-slate-500">
                         <p className="mb-1">Category</p>
                         <select
                           className="p-2 w-full bg-filterField   rounded "
                           value={searchCategory}
                           onChange={(e) => setSearchCategory(e.target.value)}
                         >
-                          <option className="bg-black" value="Web Development">
-                            Web Development
-                          </option>
-                          <option className="bg-black" value="AI">
-                            AI
-                          </option>
+                          {categories.map((category, index) => (
+                            <option key={index} value={category.value}>
+                              {category.label}
+                            </option>
+                          ))}
                         </select>
                       </div>
 
@@ -115,8 +158,8 @@ const Dashboard = () => {
                             <input
                               type="datetime-local"
                               id="datetime"
-                              value={dateTime}
-                              onChange={(e) => setDateTime(e.target.value)}
+                              value={fromDateTime}
+                              onChange={(e) => setFromDateTime(e.target.value)}
                               className="p-2 bg-filterField rounded"
                             />
                           </div>
@@ -127,12 +170,27 @@ const Dashboard = () => {
                             <input
                               type="datetime-local"
                               id="datetime"
-                              value={dateTime}
-                              onChange={(e) => setDateTime(e.target.value)}
+                              value={toDateTime}
+                              onChange={(e) => setToDateTime(e.target.value)}
                               className="p-2 bg-filterField rounded"
                             />
                           </div>
                         </div>
+                      </div>
+
+                      <div className="mt-3 w-full flex justify-end">
+                        <button
+                          className="p-2 bg-primary text-white text-semibold border-0 rounded self-end"
+                          onClick={() =>
+                            searchAndfilterEvents(
+                              searchCategory,
+                              fromDateTime,
+                              toDateTime
+                            )
+                          }
+                        >
+                          <FaArrowRight size={25} />
+                        </button>
                       </div>
                     </div>
                   </div>
@@ -150,8 +208,10 @@ const Dashboard = () => {
             <DisplayCounterCard />
           </div>
 
-          <div className=" w-full block md:hidden ">
-            <MonthlyEventCard />
+          <div className="mt-5 w-full flex md:hidden justify-center">
+            <div className="" style={{ maxWidth: '70vh', minHeight: '30vh' }}>
+              <MonthlyEventCard />
+            </div>
           </div>
         </div>
 

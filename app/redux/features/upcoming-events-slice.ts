@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Event, ProcessDate } from './event-slice';
 
-const initializer: Event = {
+export const initializer: Event = {
   id: '',
   rank: 0,
   title: 'Loading',

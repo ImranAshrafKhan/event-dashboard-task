@@ -10,17 +10,17 @@ const MonthlyEventCard = () => {
   );
 
   return (
-    <div className="h-full w-full bg-primaryDark text-white rounded-3xl drop-shadow-xl">
+    <div className="h-full w-full bg-primaryDark text-white rounded-3xl drop-shadow-xl overflow-y-auto overflow-x-hidden">
       <div className="px-1 lg:px-4 p-4 pb-1 w-full flex justify-between">
-        <h1 className="w-11/12 lg:w-6/12 text-3xl font-bold">
+        <h1 className="w-11/12 lg:w-6/12 text-2xl font-bold">
           Event of the month
         </h1>
         <Image
           src="/medal.svg"
-          width={40}
-          height={40}
+          width={25}
+          height={25}
           alt="Medal "
-          className="rotate-6 me-5 w-2/12"
+          className="rotate-6 me-5 "
         />
       </div>
 

@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Event, ProcessDate } from './event-slice';
+import { importLocalStorage } from './favourite-events-slice';
 
 export const initializer: Event = {
   id: '',
@@ -33,6 +34,7 @@ export const upcomingEventSlice = createSlice({
       const currentDate = new Date();
       const currentMonth = new Date().getMonth() + 1;
       const currentYear = new Date().getFullYear();
+      const localStorage = importLocalStorage();
 
       //   Comment the above logic for month and year and use the below one to check
       //   because the api is sending data for month feb and year 2024
@@ -60,7 +62,12 @@ export const upcomingEventSlice = createSlice({
 
         if (eventDate >= currentDate) {
           const formatedDateTime = ProcessDate(singleEvent.start);
+
           const existingEvent = state.upcomingEvents.find(
+            (event) => event.id === singleEvent.id
+          );
+
+          const existingEventInLoader = localStorage.events.find(
             (event) => event.id === singleEvent.id
           );
 
@@ -75,26 +82,27 @@ export const upcomingEventSlice = createSlice({
               date: formatedDateTime[0],
               start: formatedDateTime[1],
               time: formatedDateTime[2],
-              isFavourite: false,
+              isFavourite: existingEventInLoader
+                ? existingEventInLoader.isFavourite
+                : false,
             });
           }
         }
       });
     },
 
-    // addUpcomingEventtoFavourite: (
-    //   state,
-    //   action: PayloadAction<{ id: String }>
-    // ) => {
-    //   state.value.forEach((result: EventState) => {
-    //     if (result.id == action.payload.id) {
-    //       result.favourite = !result.favourite;
-    //       console.log(result);
-    //     }
-    //   });
-    // },
+    addUpcomingEventtoFavourite: (
+      state,
+      action: PayloadAction<{ id: String }>
+    ) => {
+      state.upcomingEvents.forEach((singleEvent: Event) => {
+        if (singleEvent.id == action.payload.id)
+          singleEvent.isFavourite = !singleEvent.isFavourite;
+      });
+    },
   },
 });
 
-export const { setUpcomingEvents } = upcomingEventSlice.actions;
+export const { setUpcomingEvents, addUpcomingEventtoFavourite } =
+  upcomingEventSlice.actions;
 export default upcomingEventSlice.reducer;

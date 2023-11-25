@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { importLocalStorage } from './favourite-events-slice';
 
 export type Event = {
   id: string;
@@ -30,6 +31,7 @@ export const monthNames = [
 
 export const ProcessDate = (dateToBeProcessed: string) => {
   const date = new Date(dateToBeProcessed);
+  console.log(dateToBeProcessed);
 
   const day = date.getUTCDate();
   const month = date.getUTCMonth() + 1;
@@ -68,10 +70,16 @@ export const eventSlice = createSlice({
       action: PayloadAction<{ count: number; results: Event[] }>
     ) => {
       state.totalCount = action.payload.count;
+      const localStorage = importLocalStorage();
+
       action.payload.results.forEach((singleEvent: Event) => {
         const formatedDateTime = ProcessDate(singleEvent.start);
 
         const existingEvent = state.events.find(
+          (event) => event.id === singleEvent.id
+        );
+
+        const existingEventInLoader = localStorage.events.find(
           (event) => event.id === singleEvent.id
         );
 
@@ -86,7 +94,9 @@ export const eventSlice = createSlice({
             date: formatedDateTime[0],
             start: formatedDateTime[1],
             time: formatedDateTime[2],
-            isFavourite: false,
+            isFavourite: existingEventInLoader
+              ? existingEventInLoader.isFavourite
+              : false,
           });
         }
       });
@@ -95,8 +105,22 @@ export const eventSlice = createSlice({
     setLoading: (state, action: PayloadAction<{ loading: boolean }>) => {
       state.isLoading = action.payload.loading;
     },
+
+    sortEvents: (state, action: PayloadAction<{ isAscending: boolean }>) => {
+      state.events = action.payload.isAscending
+        ? (state.events.sort((a, b) => a.rank - b.rank) as Event[])
+        : (state.events.sort((a, b) => b.rank - a.rank) as Event[]);
+    },
+
+    addEventtoFavourite: (state, action: PayloadAction<{ id: string }>) => {
+      state.events.forEach((singleEvent: Event) => {
+        if (singleEvent.id == action.payload.id)
+          singleEvent.isFavourite = !singleEvent.isFavourite;
+      });
+    },
   },
 });
 
-export const { setEvents, setLoading } = eventSlice.actions;
+export const { setEvents, setLoading, addEventtoFavourite, sortEvents } =
+  eventSlice.actions;
 export default eventSlice.reducer;

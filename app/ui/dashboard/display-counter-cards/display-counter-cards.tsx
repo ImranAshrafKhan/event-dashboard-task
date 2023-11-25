@@ -4,8 +4,12 @@ import { useAppSelector } from '@/app/redux/store';
 
 const DisplayCounterCard = () => {
   const totalEvents = useAppSelector((state) => state.eventsReducer.totalCount);
+
   const eventsThisMonth = useAppSelector(
     (state) => state.upcomingEventReducer.currentMonthEventsCount
+  );
+  const totalFavouriteEvents = useAppSelector(
+    (state) => state.favouriteEventsReducer.totalCount
   );
 
   return (
@@ -17,7 +21,10 @@ const DisplayCounterCard = () => {
         <CardTemplate cardTitle="This Month" amount={eventsThisMonth} />
       </div>
       <div className="w-4/12">
-        <CardTemplate cardTitle="Favourite Events" amount={25} />
+        <CardTemplate
+          cardTitle="Favourite Events"
+          amount={totalFavouriteEvents}
+        />
       </div>
     </>
   );

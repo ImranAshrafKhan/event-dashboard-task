@@ -14,13 +14,15 @@ import { addUpcomingEventtoFavourite } from '@/app/redux/features/upcoming-event
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '@/app/redux/store';
 
-const EventsTable = ({
+const FavouriteEventsTable = ({
   handleSelectEvent,
 }: {
   handleSelectEvent: Function;
 }) => {
   const [isAscending, setIsAscending] = useState(true);
-  const events = useAppSelector((state) => state.eventsReducer.events);
+  const favouriteEvents = useAppSelector(
+    (state) => state.favouriteEventsReducer.events
+  );
   // const dispatch = useDispatch<AppDispatch>();
 
   // const sortEvents = (a: boolean) => {
@@ -79,8 +81,8 @@ const EventsTable = ({
         </thead>
 
         <tbody className="text-slate-500 font-medium ">
-          {events.map((event, index) => (
-            <EventRow
+          {favouriteEvents.map((event, index) => (
+            <FavouriteEventRow
               event={event}
               handleSelectEvent={handleSelectEvent}
               index={index}
@@ -93,7 +95,9 @@ const EventsTable = ({
   );
 };
 
-const EventRow = ({
+export default FavouriteEventsTable;
+
+const FavouriteEventRow = ({
   event,
   index,
   handleSelectEvent,
@@ -153,5 +157,3 @@ const EventRow = ({
     </tr>
   );
 };
-
-export default EventsTable;

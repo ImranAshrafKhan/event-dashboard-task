@@ -1,19 +1,20 @@
 'use client';
 import Image from 'next/image';
-import Loading from '../loading';
+import Loading from '@/app/ui/loading';
 import EventsTable from '@/app/ui/dashboard/events-table';
 import DisplayCounterCard from '@/app/ui/dashboard/display-counter-cards/display-counter-cards';
 import MonthlyEventCard from '@/app/ui/dashboard/monthly-event-card';
 import UpcomingEventsList from '@/app/ui/dashboard/upcoming-events-list';
-import DisplayEventModal from './display-event-modal';
+import DisplayEventModal from '@/app/ui/display-event-modal';
 
 import { AppDispatch, useAppSelector } from '@/app/redux/store';
 import { setEvents, setLoading } from '@/app/redux/features/event-slice';
-import { getEvents } from '@/app/lib/events/get-events';
+import { setFavEvents } from '@/app/redux/features/favourite-events-slice';
 import { setUpcomingEvents } from '@/app/redux/features/upcoming-events-slice';
+import { initializer } from '@/app/redux/features/upcoming-events-slice';
+import { getEvents } from '@/app/lib/events/get-events';
 import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { initializer } from '@/app/redux/features/upcoming-events-slice';
 
 const Dashboard = () => {
   const [needDropdown, setNeedDropdown] = useState(false);
@@ -37,6 +38,7 @@ const Dashboard = () => {
         const events = await getEvents();
         dispatch(setEvents({ count: events.count, results: events.results }));
         dispatch(setUpcomingEvents({ results: events.results }));
+        dispatch(setFavEvents());
       } catch (error) {
         console.error('Error fetching events:', error);
       } finally {

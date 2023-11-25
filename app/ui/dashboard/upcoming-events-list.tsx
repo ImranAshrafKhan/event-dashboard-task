@@ -1,8 +1,13 @@
 'use client';
 
-import { useAppSelector } from '@/app/redux/store';
 import { Event } from '@/app/redux/features/event-slice';
 import { FaRegHeart, FaHeart } from 'react-icons/fa';
+import { useAppSelector } from '@/app/redux/store';
+import { addEventtoFavourite } from '@/app/redux/features/event-slice';
+import { addEventToFavouriteEvents } from '@/app/redux/features/favourite-events-slice';
+import { addUpcomingEventtoFavourite } from '@/app/redux/features/upcoming-events-slice';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '@/app/redux/store';
 
 const UpcomingEventsList = () => {
   const upcomingEvents = useAppSelector(
@@ -16,7 +21,11 @@ const UpcomingEventsList = () => {
         style={{ maxHeight: '40vh' }}
       >
         {upcomingEvents.map((event, index) => (
-          <SingleUpcomingEvent upcomingEvent={event} index={index} />
+          <SingleUpcomingEvent
+            upcomingEvent={event}
+            index={index}
+            key={index}
+          />
         ))}
       </div>
     </div>
@@ -30,6 +39,13 @@ const SingleUpcomingEvent = ({
   upcomingEvent: Event;
   index: number;
 }) => {
+  const dispatch = useDispatch<AppDispatch>();
+
+  const toggleFavourites = (event: Event) => {
+    dispatch(addEventtoFavourite({ id: event.id }));
+    dispatch(addEventToFavouriteEvents({ results: event }));
+    dispatch(addUpcomingEventtoFavourite({ id: event.id }));
+  };
   return (
     <div
       className="mt-2 p-3 w-full flex justify-between border border-solid border-slate-300 rounded-xl cursor-pointer hover:bg-slate-100"
@@ -44,9 +60,15 @@ const SingleUpcomingEvent = ({
         </p>
       </div>
       <div className=" text-primary flex">
-        <button className="border-0 bg-transparent self-center">
-          <FaRegHeart size={21} />
-          {/* <FaHeart className="text-red-600" size={21} /> */}
+        <button
+          className="border-0 bg-transparent self-center"
+          onClick={() => toggleFavourites(upcomingEvent)}
+        >
+          {upcomingEvent.isFavourite ? (
+            <FaHeart className="text-red-600" size={21} />
+          ) : (
+            <FaRegHeart size={21} />
+          )}
         </button>
       </div>
     </div>

@@ -22,7 +22,8 @@ export default function RootLayout({
       >
         <ReduxProvider>
           <Header />
-          <Panel children={children} />
+          {/* <Panel children={children} /> */}
+          <Panel>{children}</Panel>
         </ReduxProvider>
       </body>
     </html>

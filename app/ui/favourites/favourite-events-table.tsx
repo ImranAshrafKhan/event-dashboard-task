@@ -1,10 +1,10 @@
 'use client';
 
+import { AppDispatch } from '@/app/redux/store';
 import { useAppSelector } from '@/app/redux/store';
 import { Event } from '@/app/redux/features/event-slice';
 import { FaRegHeart, FaHeart } from 'react-icons/fa';
 import { HiArrowsUpDown } from 'react-icons/hi2';
-import { useEffect, useState } from 'react';
 import {
   addEventtoFavourite,
   sortEvents,
@@ -12,7 +12,7 @@ import {
 import { addEventToFavouriteEvents } from '@/app/redux/features/favourite-events-slice';
 import { addUpcomingEventtoFavourite } from '@/app/redux/features/upcoming-events-slice';
 import { useDispatch } from 'react-redux';
-import { AppDispatch } from '@/app/redux/store';
+import { useState } from 'react';
 
 const FavouriteEventsTable = ({
   handleSelectEvent,
@@ -23,11 +23,11 @@ const FavouriteEventsTable = ({
   const favouriteEvents = useAppSelector(
     (state) => state.favouriteEventsReducer.events
   );
-  // const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useDispatch<AppDispatch>();
 
-  // const sortEvents = (a: boolean) => {
-  //   dispatch(sortEvents());
-  // };
+  const toggleSort = async (isAscending: boolean) => {
+    dispatch(sortEvents({ isAscending }));
+  };
 
   return (
     <div className="h-5/6 overflow-x-auto relative">
@@ -44,7 +44,10 @@ const FavouriteEventsTable = ({
               #{' '}
               <button
                 className="ms-2 bg-transparent text-primary border-0 rounded-full hover:bg-slate-200 "
-                onClick={() => setIsAscending(!isAscending)}
+                onClick={() => {
+                  setIsAscending(!isAscending);
+                  toggleSort(isAscending);
+                }}
               >
                 <HiArrowsUpDown size={15} />
               </button>

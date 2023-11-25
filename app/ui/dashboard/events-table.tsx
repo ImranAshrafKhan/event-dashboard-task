@@ -21,11 +21,11 @@ const EventsTable = ({
 }) => {
   const [isAscending, setIsAscending] = useState(true);
   const events = useAppSelector((state) => state.eventsReducer.events);
-  // const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useDispatch<AppDispatch>();
 
-  // const sortEvents = (a: boolean) => {
-  //   dispatch(sortEvents());
-  // };
+  const toggleSort = async (isAscending: boolean) => {
+    dispatch(sortEvents({ isAscending }));
+  };
 
   return (
     <div className="h-5/6 overflow-x-auto relative">
@@ -42,7 +42,10 @@ const EventsTable = ({
               #{' '}
               <button
                 className="ms-2 bg-transparent text-primary border-0 rounded-full hover:bg-slate-200 "
-                onClick={() => setIsAscending(!isAscending)}
+                onClick={() => {
+                  setIsAscending(!isAscending);
+                  toggleSort(isAscending);
+                }}
               >
                 <HiArrowsUpDown size={15} />
               </button>

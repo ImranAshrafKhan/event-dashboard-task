@@ -21,7 +21,7 @@ const initialState: {
   events: [],
 };
 
-const monthNames = [
+export const monthNames = [
   'Jan',
   'Feb',
   'Mar',
@@ -36,7 +36,7 @@ const monthNames = [
   'Dec',
 ];
 
-const ProcessDate = (dateToBeProcessed: string) => {
+export const ProcessDate = (dateToBeProcessed: string) => {
   const date = new Date(dateToBeProcessed);
 
   const day = date.getUTCDate();

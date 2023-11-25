@@ -40,7 +40,7 @@ export const ProcessDate = (dateToBeProcessed: string) => {
   const date = new Date(dateToBeProcessed);
 
   const day = date.getUTCDate();
-  const month = date.getUTCMonth();
+  const month = date.getUTCMonth() + 1;
   const monthInText = monthNames[date.getUTCMonth()];
   const year = date.getUTCFullYear();
 

@@ -29,13 +29,6 @@ const Dashboard = () => {
     getAndDispatchEvents();
   }, [dispatch]);
 
-  const event = {
-    name: 'Web Development',
-    category: 'AI',
-    location: 'Bahria Intellectual Village',
-    date: 'Thu 2 Nov 2023',
-    time: '12:00am',
-  };
   return (
     <>
       <div className="md:me-7 md:w-4/6 w-full h-full flex flex-col">
@@ -75,7 +68,7 @@ const Dashboard = () => {
         </div>
 
         <div className="h-2/5 w-full hidden md:block ">
-          <MonthlyEventCard event={event} />
+          <MonthlyEventCard />
         </div>
       </div>
     </>

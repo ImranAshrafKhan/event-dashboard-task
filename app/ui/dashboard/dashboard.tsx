@@ -8,7 +8,7 @@ import UpcomingEventsList from '@/app/ui/dashboard/upcoming-events-list';
 
 import { AppDispatch, useAppSelector } from '@/app/redux/store';
 import { setEvents, setLoading } from '@/app/redux/features/event-slice';
-import { getEvents } from '@/app/lib/get-events';
+import { getEvents } from '@/app/lib/events/get-events';
 import { setUpcomingEvents } from '@/app/redux/features/upcoming-events-slice';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';

@@ -1,24 +1,26 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Event, ProcessDate } from './event-slice';
 
+const initializer: Event = {
+  id: '',
+  rank: 0,
+  title: 'Loading',
+  category: '',
+  description: '',
+  country: '',
+  start: '',
+  date: '',
+  time: '',
+  isFavourite: false,
+};
+
 const initialState: {
   currentMonthEventsCount: number;
   eventOfTheMonth: Event;
   upcomingEvents: Event[];
 } = {
   currentMonthEventsCount: 0,
-  eventOfTheMonth: {
-    id: '',
-    rank: 0,
-    title: 'Loading',
-    category: '',
-    description: '',
-    country: '',
-    start: '',
-    date: '',
-    time: '',
-    isFavourite: false,
-  },
+  eventOfTheMonth: initializer,
   upcomingEvents: [],
 };
 
@@ -27,6 +29,7 @@ export const upcomingEventSlice = createSlice({
   initialState,
   reducers: {
     setUpcomingEvents: (state, action: PayloadAction<{ results: Event[] }>) => {
+      state.eventOfTheMonth = initializer;
       const currentDate = new Date();
       const currentMonth = new Date().getMonth() + 1;
       const currentYear = new Date().getFullYear();

@@ -11,8 +11,8 @@ const MonthlyEventCard = () => {
 
   return (
     <div className="h-full w-full bg-primaryDark text-white rounded-3xl drop-shadow-xl overflow-y-auto overflow-x-hidden">
-      <div className="px-1 lg:px-4 p-4 pb-1 w-full flex justify-between">
-        <h1 className="w-11/12 lg:w-6/12 text-2xl font-bold">
+      <div className="px-3 lg:px-4 py-4 pb-1 w-full flex justify-between">
+        <h1 className=" w-9/12 lg:w-6/12 text-2xl font-bold">
           Event of the month
         </h1>
         <Image
@@ -24,7 +24,7 @@ const MonthlyEventCard = () => {
         />
       </div>
 
-      <div className="mx-2 lg:mx-4 px-1 lg:px-4 py-2  w-11/12 bg-white text-slate-500 text-xs rounded-lg">
+      <div className="mt-2 mb-5 lg:my-0 mx-3 lg:mx-4 px-1 lg:px-4 py-2  w-11/12 bg-white text-slate-500 text-xs rounded-lg">
         <div className="w-full flex justify-between">
           <div className=" text-primary text-base font-bold">
             {eventOfTheMonth.title === 'Loading'

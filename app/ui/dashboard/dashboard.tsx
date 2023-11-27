@@ -103,10 +103,7 @@ const Dashboard = () => {
       <>
         <div className="md:me-7 md:w-4/6 w-full h-full flex flex-col">
           {/* The left part of dashboard */}
-          <div
-            className="pb-5 w-full overflow-y-hidden"
-            style={{ maxHeight: '70vh' }}
-          >
+          <div className="pb-5 w-full overflow-y-hidden max-h-[70vh]">
             {/* Here we're displaying event list */}
             <div className="pb-2 flex justify-between">
               <h1 className="text-lg font-semibold">Events List</h1>
@@ -208,8 +205,8 @@ const Dashboard = () => {
             <DisplayCounterCard />
           </div>
 
-          <div className="mt-5 w-full flex md:hidden justify-center">
-            <div className="" style={{ maxWidth: '70vh', minHeight: '30vh' }}>
+          <div className="mt-5 w-full flex md:hidden justify-center ">
+            <div className="max-w-[80vh] max-h-[35vh]">
               <MonthlyEventCard />
             </div>
           </div>
@@ -221,10 +218,7 @@ const Dashboard = () => {
             <UpcomingEventsList />
           </div>
 
-          <div
-            className="h-2/5 w-full hidden md:block "
-            style={{ maxHeight: '30vh' }}
-          >
+          <div className="h-2/5 w-full hidden md:block max-h-[30vh] xl:max-h-[15vh] xl:mt-3">
             <MonthlyEventCard />
           </div>
         </div>
